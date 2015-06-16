@@ -38,18 +38,21 @@ integ1=integral (f,0,1); err1 = abs(exactinteg-integ1) % matlab built-in
 
 %%
 % The second method is the GAIL routine that has a theoretical
-% justification
+% justification. See N. Clancy, Y. Ding, C. Hamilton, F. J. Hickernell, and
+% Y. Zhang, The cost of deterministic, adaptive, automatic algorithms:
+% Cones, not balls, _Journal of Complexity_, *30*, 2014, pp. 21-45.
 
 integ2=integral_g (f,0,1,1e-12); err2 = abs(exactinteg-integ2) % gail routine
 
 %%
 % The third method is an improvement on the GAIL routine, which was
-% proposed by
+% proposed by F.J. Hickernell, M. Razo, and S. Yun, Reliable Adaptive
+% Numerical Integration, 2015, submitted for publication.
 
 integ3=integralNoPenalty_g (f,0,1,1e-12); err3 = abs(exactinteg-integ3) % fred's routine
 
 %%
-% The fourth method is the Chebfun MATLAB toolbox
+% The fourth method is the Chebfun MATLAB toolbox. http://www.chebfun.org/
 
 fcheb = chebfun(f,[0 1]); integ4=sum(fcheb); err4 = abs(exactinteg-integ4) % chebfun routine
 
