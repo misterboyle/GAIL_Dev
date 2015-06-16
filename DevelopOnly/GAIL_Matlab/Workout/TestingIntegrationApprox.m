@@ -2,6 +2,12 @@
 
 %% Initialization
 format compact
+close all %close all figures
+clearvars %clear all variables
+set(0,'defaultaxesfontsize',24,'defaulttextfontsize',24) %make font larger
+set(0,'defaultLineLineWidth',3) %thick lines
+set(0,'defaultTextInterpreter','latex') %latex axis labels
+set(0,'defaultLegendInterpreter','latex') %latex axis labels
 
 %% Test Functions
 % These are some test functions that we use to demonstrate the strengths
@@ -9,7 +15,15 @@ format compact
 % routines.
 
 %f=@(x) x; exactinteg=1/2;
-f=@(x) x.*x; exactinteg=1/3;
+%f=@(x) x.*x; exactinteg=1/3;
+peaky=@(x,t,h) exp(-((x-t)/h).^2)/(0.5*sqrt(pi)*(erf((1-t)/h)+erf(t/h))); 
+   %Gaussian peak
+f = @(x) peaky(x,1/2,1); exactinteg = 1;
+xplot = 0:0.002:1;
+plot(xplot,f(xplot),'-','linewidth',3)
+xlabel('$x$')
+ylabel('$f(x)$')
+
 
 %% Integration routines
 % Let's integrate the test function, i.e., we will compute
@@ -27,6 +41,7 @@ integ1=integral (f,0,1); err1 = abs(exactinteg-integ1) % matlab built-in
 % justification
 
 integ2=integral_g (f,0,1,1e-12); err2 = abs(exactinteg-integ2) % gail routine
+
 %%
 % The third method is an improvement on the GAIL routine, which was
 % proposed by
