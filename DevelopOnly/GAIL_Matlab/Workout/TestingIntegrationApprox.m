@@ -90,19 +90,29 @@ err4 = abs(exactinteg-integ4)
 
 
 %% Function Approximation Routines
-% For function approximation, there is no automatic routine in MATLAB like
-% the |integral| function.  However, Chebfun does do function
-% approximation.
+% For function approximation the problem is to find \(\hat{f}\) based on
+% \((x_1, f(x_1)), \ldots, (x_n, f(x_n))\) such that
+%
+% \[ \sup_{0 \le x \le 1} \lvert f(x) - \hat{f}(x) \rvert \le \varepsilon
+% \]
+%
+% There is no automatic routine in MATLAB like the |integral| function.
+% However, Chebfun does do automatic function approximation. 
 
 xtest=sort(rand(1e6,1));
 ftest=f(xtest);
 tic, f1 = chebfun(f,[0 1]); toc
 diff1 = abs(ftest-f1(xtest));
-errf1 = max(diff1)
+errf1 = max(diff1) % an approximation to the error
+
+%%
+% Here  is a plot of the difference between the values of the function at
+% the test points and the values of the approximation at those same points
+
 figure
 plot(xtest,diff1,'-')
 xlabel('\(x\)','Interpreter','latex')
-ylabel('Error')
+ylabel('\( |f(x) - \hat{f}(x)| \)','Interpreter','latex')
 
 
 %%
@@ -114,7 +124,7 @@ errf2 = max(diff2)
 figure
 plot(xtest,diff2,'-')
 xlabel('\(x\)','Interpreter','latex')
-ylabel('Error')
+ylabel('\( |f(x) - \hat{f}(x)| \)','Interpreter','latex')
 
 %%
 % Again Chebfun has no theoretical guarantees, but the GAIL routine does.
