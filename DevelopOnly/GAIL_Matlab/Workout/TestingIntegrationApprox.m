@@ -6,8 +6,6 @@ close all %close all figures
 clearvars %clear all variables
 set(0,'defaultaxesfontsize',24,'defaulttextfontsize',24) %make font larger
 set(0,'defaultLineLineWidth',3) %thick lines
-set(0,'defaultTextInterpreter','latex') %latex axis labels
-set(0,'defaultLegendInterpreter','latex') %latex axis labels
 
 %% Test Functions
 % These are some test functions that we use to demonstrate the strengths
@@ -27,8 +25,8 @@ f = @(x) peaky(x,0.5,0.2); exactinteg = 1;
 %% Plot the test function
 xplot = 0:0.002:1;
 plot(xplot,f(xplot),'-')
-xlabel('\(x\)')
-ylabel('\(f(x)\)')
+xlabel('\(x\)','Interpreter','latex'); 
+ylabel('\(f(x)\)','Interpreter','latex')
 
 %% Integration Routines
 % Let's integrate the test function, i.e., we will compute
@@ -103,7 +101,7 @@ diff1 = abs(ftest-f1(xtest));
 errf1 = max(diff1)
 figure
 plot(xtest,diff1,'-')
-xlabel('\(x\)')
+xlabel('\(x\)','Interpreter','latex')
 ylabel('Error')
 
 
@@ -115,7 +113,7 @@ diff2 = abs(ftest-ppval(f2,xtest));
 errf2 = max(diff2)
 figure
 plot(xtest,diff2,'-')
-xlabel('\(x\)')
+xlabel('\(x\)','Interpreter','latex')
 ylabel('Error')
 
 %%
@@ -131,3 +129,6 @@ ylabel('Error')
 %
 % We will use the ideas behind |integralNoPenalty_g| to modify this cone
 % and modify |funappxglobal_g|.
+
+%%
+% _Author: Christine Hickernell_ 
