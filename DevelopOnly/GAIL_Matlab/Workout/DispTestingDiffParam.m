@@ -7,6 +7,8 @@ clc
 
 %% Load data
 load(datafile)
+erroralert = @(x) abs(x)/abstol;
+Npointsalert = @(x) 20*abs(x)/out.nmax;
 
 %% Integration Results
 disp('<strong>Results of Testing Integration and Approximation Routines for the Peaky Function</strong>')
@@ -19,7 +21,6 @@ pause
 disp(' ')
 disp('<strong>Errors of Integration Methods</strong>')
 disp('MATLAB''s integral')
-erroralert = @(x) max(0,(abs(x)-abstol)/abstol);
 disponematrix(err1,tvec,hvec,erroralert)
 disp('Chebfun')
 disponematrix(err2,tvec,hvec,erroralert)
@@ -42,9 +43,9 @@ pause
 disp(' ')
 disp('<strong>Number of Points Needed for Integration Methods</strong>')
 disp('integral_g (GAIL)')
-disponematrix(Npoints3,tvec,hvec,@(x) abs(x)>0.9*out.nmax)
+disponematrix(Npoints3,tvec,hvec,Npointsalert)
 disp('integralNoPenalty_g (GAIL)')
-disponematrix(Npoints4,tvec,hvec,@(x) abs(x)>0.9*out.nmax)
+disponematrix(Npoints4,tvec,hvec,Npointsalert)
 pause
 
 %% Function Approximation Results
@@ -64,7 +65,7 @@ pause
 disp(' ')
 disp('<strong>Number of Points Needed for Function Approximation Methods</strong>')
 disp('funappxglobal_g')
-disponematrix(Npointsf2,tvec,hvec,@(x) abs(x)>0.9*out.nmax)
+disponematrix(Npointsf2,tvec,hvec,Npointsalert)
 
 end
 
