@@ -44,9 +44,10 @@ errf1=integ1;
 timef1=integ1;
 errf2=integ1;
 timef2=integ2;
+Npointsf2=integ1;
 abstol=1e-10;
 in.a=0; in.b=1; in.abstol = abstol; 
-%in.nlo=1000; %more robust
+in.nlo=1000; %more robust
 in.nmax=1e8; %maximum cost budget
 xtest=sort(rand(1e6,1));
 for jj = 1:nt
@@ -67,8 +68,9 @@ for jj = 1:nt
         ftest=f(xtest); %function test values
         tic, f1 = chebfun(f,[0 1]); timef1(ii,jj)=toc;
         errf1(ii,jj) = max(abs(ftest-f1(xtest))); % an approximation to the error
-        tic, f2=funappxglobal_g (f,0,1,abstol); timef2(ii,jj)=toc;
+        tic, f2=funappxglobal_g (f,in); timef2(ii,jj)=toc;
         errf2(ii,jj) = max(abs(ftest-ppval(f2,xtest)));
+        Npointsf2(ii,jj)=out.npoints;
     end
 end
 err1=abs(exactinteg-integ1);
