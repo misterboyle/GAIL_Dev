@@ -68,7 +68,7 @@ for jj = 1:nt
         ftest=f(xtest); %function test values
         tic, f1 = chebfun(f,[0 1]); timef1(ii,jj)=toc;
         errf1(ii,jj) = max(abs(ftest-f1(xtest))); % an approximation to the error
-        tic, f2=funappxglobal_g (f,in); timef2(ii,jj)=toc;
+        tic, f2=funappxglobal_g (f,in) ; timef2(ii,jj)=toc;
         errf2(ii,jj) = max(abs(ftest-ppval(f2,xtest)));
         Npointsf2(ii,jj)=out.npoints;
     end
