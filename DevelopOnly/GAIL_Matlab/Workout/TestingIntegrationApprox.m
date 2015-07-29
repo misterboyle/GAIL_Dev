@@ -55,7 +55,7 @@ err2 = abs(exactinteg-integ2)
 % Y. Zhang, The cost of deterministic, adaptive, automatic algorithms:
 % Cones, not balls, _Journal of Complexity_, *30*, 2014, pp. 21-45.
 
-abstol = 1e-10;
+abstol = 1e-8;
 tic, integ3=integral_g (f,0,1,abstol); toc 
 err3 = abs(exactinteg-integ3) 
 
@@ -117,12 +117,26 @@ ylabel('\( |f(x) - \hat{f}(x)| \)','Interpreter','latex')
 
 %%
 % GAIL also has a routine for function approximation
-
-tic, f2=funappxglobal_g (f,0,1,abstol); toc
+abstol = 1e-8;
+nlo=1e2
+tic, [f2,out2]=funappxglobal_g (f,0,1,abstol,nlo); toc
 diff2 = abs(ftest-ppval(f2,xtest));
 errf2 = max(diff2)
+out2.npoints
 figure
 plot(xtest,diff2,'-')
+xlabel('\(x\)','Interpreter','latex')
+ylabel('\( |f(x) - \hat{f}(x)| \)','Interpreter','latex')
+
+%%
+% Christine's modification of the GAIL function approximation
+
+tic, [f3,out3]=funappxglobalcih_g (f,0,1,abstol,nlo); toc
+diff3 = abs(ftest-ppval(f3,xtest));
+errf3 = max(diff3)
+out3.npoints
+figure
+plot(xtest,diff3,'-')
 xlabel('\(x\)','Interpreter','latex')
 ylabel('\( |f(x) - \hat{f}(x)| \)','Interpreter','latex')
 
